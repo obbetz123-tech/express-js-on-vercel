@@ -54,7 +54,7 @@ export const companies: Company[] = [
         title: 'Founding Product Designer',
         location: 'Goleta · Hybrid, 3 days in office',
         type: 'Full-time',
-        link: 'mailto:hello@employ805.com?subject=Founding%20Product%20Designer%20-%20Tidehouse',
+        link: 'https://www.logicmonitor.com/careers#open-positions',
       },
       {
         title: 'Growth Marketing Intern',
