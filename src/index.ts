@@ -216,7 +216,7 @@ app.get('/', (_req, res) => {
     </div></section>
 
     <section class="manifesto"><div class="wrap reveal">
-      <p>${companies.length} founders. One coastline. <em>Real</em> Listings.</p>
+      <p>${companies.length} Start-ups. One coastline. <em>Open</em> Positions.</p>
     </div></section>
 
     <section id="openings"><div class="wrap">
