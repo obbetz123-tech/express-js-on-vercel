@@ -4,7 +4,7 @@ import { articles } from './articles-data.js'
 
 const app = express()
 
-// Serves everything in /public — including /style.css, /hero.jpg, and /logos/*.png
+// Serves everything in /public — including /style.css, /hero.jpg, and /logos/*.png /LogicLogo.png
 app.use(express.static('public'))
 
 const SITE_NAME = 'Employ805'
