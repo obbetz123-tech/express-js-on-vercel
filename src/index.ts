@@ -139,7 +139,7 @@ function motionScript(): string {
 
 app.get('/', (_req, res) => {
   const openRoles = companies.flatMap((c) =>
-    c.roles.map((r) => ({ ...r, companyName: c.name }))
+    c.roles.map((r, i) => ({ ...r, companyName: c.name, companySlug: c.slug, roleIndex: i }))
   )
 
   // Rendered three times back-to-back so the auto-scroll can loop seamlessly in either direction.
@@ -170,7 +170,7 @@ app.get('/', (_req, res) => {
         <div class="job-company">${r.companyName}</div>
         <div class="job-note">${r.location}</div>
         <div class="job-type">${r.type}</div>
-        <a class="apply" href="${r.link}">View role →</a>
+        <a class="apply" href="/go/${r.companySlug}/${r.roleIndex}">View role →</a>
       </article>`
     )
     .join('')
@@ -208,7 +208,7 @@ app.get('/', (_req, res) => {
       <div class="section-top reveal">
         <h2>Companies</h2>
         <p>A running list of the startups building here.</p>
-        <p class="rail-hint">Select a company for open positions and more info.</p>
+        <p class="rail-hint">Scroll sideways, or just watch it go. Click a logo to see who's behind it and what they're hiring for.</p>
       </div>
       <div class="logo-rail" id="logoRail">
         <div class="logo-track">${railItems}</div>
@@ -216,7 +216,7 @@ app.get('/', (_req, res) => {
     </div></section>
 
     <section class="manifesto"><div class="wrap reveal">
-      <p>${companies.length} Start-ups. One coastline. <em>Open</em> Positions.</p>
+      <p>${companies.length} founders. One coastline. <em>Zero</em> gatekeeping.</p>
     </div></section>
 
     <section id="openings"><div class="wrap">
@@ -265,12 +265,12 @@ app.get('/company/:slug', (req, res) => {
   const rolesHtml = company.roles.length
     ? `<div class="jobs">${company.roles
         .map(
-          (r) => `<article class="job reveal">
+          (r, i) => `<article class="job reveal">
         <div class="job-title">${r.title}</div>
         <div class="job-company">${company.name}</div>
         <div class="job-note">${r.location}</div>
         <div class="job-type">${r.type}</div>
-        <a class="apply" href="${r.link}">View role →</a>
+        <a class="apply" href="/go/${company.slug}/${i}">View role →</a>
       </article>`
         )
         .join('')}</div>`
@@ -306,6 +306,85 @@ app.get('/company/:slug', (req, res) => {
   ${motionScript()}
 </body>
 </html>`)
+})
+
+// A free, no-signup counting service — no database or account setup needed.
+// Swap this for something like Vercel KV later if you want click history,
+// not just running totals.
+const COUNT_API = 'https://countapi.mileshilliard.com/api/v1'
+
+// Change this before your stats page is real — anyone with the link and this
+// word can see your click counts. Better: set an ADMIN_KEY environment
+// variable in your Vercel project settings instead of editing this file.
+const ADMIN_KEY = process.env.ADMIN_KEY || 'employ805-admin'
+
+function clickKey(companySlug: string, roleIndex: number): string {
+  return `employ805-${companySlug}-${roleIndex}`
+}
+
+// Every "View role" link points here first. It logs a click, then forwards
+// the applicant on to the company's real application link. If the counting
+// service is slow or down, the redirect still happens immediately — a
+// visitor should never be stuck waiting on analytics.
+app.get('/go/:slug/:index', (req, res) => {
+  const company = companies.find((c) => c.slug === req.params.slug)
+  const idx = Number(req.params.index)
+  const role = company?.roles[idx]
+
+  if (!company || !role || Number.isNaN(idx)) {
+    res.redirect('/')
+    return
+  }
+
+  fetch(`${COUNT_API}/hit/${encodeURIComponent(clickKey(company.slug, idx))}`).catch(() => {
+    // Tracking is best-effort. A failed click count should never block someone from applying.
+  })
+
+  res.redirect(302, role.link)
+})
+
+// Visit /admin/stats?key=YOUR_ADMIN_KEY to see click counts per role.
+// This is intentionally simple — good enough to show a company real numbers,
+// not a full analytics dashboard.
+app.get('/admin/stats', async (req, res) => {
+  if (req.query.key !== ADMIN_KEY) {
+    res.status(403).type('html').send('<p style="font-family:sans-serif;padding:40px">Forbidden — add ?key=... to the URL.</p>')
+    return
+  }
+
+  const rows = companies.flatMap((c) =>
+    c.roles.map((r, i) => ({ company: c.name, title: r.title, key: clickKey(c.slug, i) }))
+  )
+
+  const counts = await Promise.all(
+    rows.map(async (row) => {
+      try {
+        const r = await fetch(`${COUNT_API}/get/${encodeURIComponent(row.key)}`)
+        if (!r.ok) return 0
+        const data = (await r.json()) as { value?: number }
+        return data.value ?? 0
+      } catch {
+        return 0
+      }
+    })
+  )
+
+  const tableRows = rows
+    .map((row, i) => `<tr><td>${row.company}</td><td>${row.title}</td><td>${counts[i]}</td></tr>`)
+    .join('')
+
+  res.type('html').send(`<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Click stats — ${SITE_NAME}</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 40px; background: #f7f2ea; color: #1a1712; }
+  table { border-collapse: collapse; width: 100%; max-width: 640px; }
+  th, td { border-bottom: 1px solid #ccc; padding: 8px 12px; text-align: left; font-size: 14px; }
+  h1 { font-size: 20px; }
+</style></head>
+<body>
+  <h1>Click stats</h1>
+  <table><tr><th>Company</th><th>Role</th><th>Clicks</th></tr>${tableRows}</table>
+</body></html>`)
 })
 
 app.get('/healthz', (_req, res) => {
