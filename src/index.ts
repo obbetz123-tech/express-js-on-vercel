@@ -1,5 +1,6 @@
 import express from 'express'
 import { companies, type Company } from './companies-data.js'
+import { articles } from './articles-data.js'
 
 const app = express()
 
@@ -52,21 +53,49 @@ function footer(): string {
   </div></footer>`
 }
 
-function parallaxScript(): string {
+function motionScript(): string {
   return `<script>
   (function () {
+    // Hero parallax
     var img = document.querySelector('[data-parallax]');
-    if (!img) return;
-    var ticking = false;
-    function update() {
-      var rect = img.parentElement.getBoundingClientRect();
-      img.style.transform = 'translateY(' + rect.top * 0.28 + 'px)';
-      ticking = false;
+    if (img) {
+      var ticking = false;
+      var update = function () {
+        var rect = img.parentElement.getBoundingClientRect();
+        img.style.transform = 'translateY(' + rect.top * 0.28 + 'px)';
+        ticking = false;
+      };
+      window.addEventListener('scroll', function () {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+      update();
     }
-    window.addEventListener('scroll', function () {
-      if (!ticking) { requestAnimationFrame(update); ticking = true; }
-    }, { passive: true });
-    update();
+
+    // Company logo rail: pause auto-scroll on touch (hover is handled in CSS)
+    var rail = document.getElementById('logoRail');
+    if (rail) {
+      var pause = function () { rail.classList.add('paused'); };
+      var resume = function () { rail.classList.remove('paused'); };
+      rail.addEventListener('touchstart', pause, { passive: true });
+      rail.addEventListener('touchend', resume, { passive: true });
+      rail.addEventListener('touchcancel', resume, { passive: true });
+    }
+
+    // Scroll-triggered reveal animation
+    var revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      revealEls.forEach(function (el) { io.observe(el); });
+    } else {
+      revealEls.forEach(function (el) { el.classList.add('in-view'); });
+    }
   })();
   </script>`
 }
@@ -76,15 +105,29 @@ app.get('/', (_req, res) => {
     c.roles.map((r) => ({ ...r, companyName: c.name }))
   )
 
-  const companyCards = companies
+  // Rendered twice back-to-back so the CSS animation can loop seamlessly at the halfway point.
+  const railItems = [...companies, ...companies]
     .map(
-      (c) => `<a class="logo-card" href="/company/${c.slug}" aria-label="${c.name}">${logoMarkup(c)}</a>`
+      (c) => `<a class="logo-item" href="/company/${c.slug}" aria-label="${c.name}">${logoMarkup(c)}</a>`
     )
+    .join('')
+
+  const articleRows = articles
+    .map((a) => {
+      const tagCompany = companies.find((c) => c.slug === a.company)
+      return `<a class="article-row reveal" href="${a.url}" target="_blank" rel="noopener">
+        <span class="article-title">${a.title}</span>
+        <span class="article-meta">
+          ${tagCompany ? `<span class="article-tag">${tagCompany.name}</span>` : ''}
+          <span>${a.source} · ${a.date}</span>
+        </span>
+      </a>`
+    })
     .join('')
 
   const jobRows = openRoles
     .map(
-      (r) => `<article class="job">
+      (r) => `<article class="job reveal">
         <div class="job-title">${r.title}</div>
         <div class="job-company">${r.companyName}</div>
         <div class="job-note">${r.location}</div>
@@ -121,32 +164,31 @@ app.get('/', (_req, res) => {
       <span><i>&#9679;</i>San Luis Obispo</span>
     </div>
 
-    <section id="companies"><div class="wrap">
-      <div class="section-top">
-        <h2>Founder-led companies</h2>
-        <p>Early-stage teams, selected for the work they're doing. Click a company to see who's behind it and what they're hiring for.</p>
+    <section id="companies"><div class="wrap companies-layout">
+      <div class="section-top reveal">
+        <h2>Companies</h2>
+        <p>A running list of the startups building here.</p>
+        <p class="rail-hint">Click a logo to see who's behind it and what they're hiring for.</p>
       </div>
-      <div class="logo-grid">${companyCards}</div>
+      <div class="logo-rail" id="logoRail">
+        <div class="logo-track">${railItems}</div>
+      </div>
     </div></section>
 
     <section id="openings"><div class="wrap">
-      <div class="section-top">
+      <div class="section-top reveal">
         <h2>Open roles</h2>
         <p>Apply directly to the company. No accounts, no algorithms.</p>
       </div>
       <div class="jobs">${jobRows}</div>
     </div></section>
 
-    <section class="how"><div class="wrap">
-      <div class="section-top">
-        <h2>Good work is closer than you think.</h2>
-        <p>Employ805 keeps the connection between a founder and a candidate direct and clear.</p>
+    <section class="news"><div class="wrap">
+      <div class="section-top reveal">
+        <h2>In the news</h2>
+        <p>Coverage and write-ups about the startups listed here.</p>
       </div>
-      <div class="steps">
-        <div class="step"><div class="step-number">01</div><h3>Founders share</h3><p>A short, useful picture of their company and the role they need filled.</p></div>
-        <div class="step"><div class="step-number">02</div><h3>People discover</h3><p>Browse a small, edited list of roles worth knowing about.</p></div>
-        <div class="step"><div class="step-number">03</div><h3>Conversations start</h3><p>Apply straight to the team.</p></div>
-      </div>
+      <div class="articles">${articleRows}</div>
     </div></section>
 
     <section id="founders"><div class="wrap founders-cta">
@@ -158,7 +200,7 @@ app.get('/', (_req, res) => {
     </div></section>
   </main>
   ${footer()}
-  ${parallaxScript()}
+  ${motionScript()}
 </body>
 </html>`)
 })
@@ -179,7 +221,7 @@ app.get('/company/:slug', (req, res) => {
   const rolesHtml = company.roles.length
     ? `<div class="jobs">${company.roles
         .map(
-          (r) => `<article class="job">
+          (r) => `<article class="job reveal">
         <div class="job-title">${r.title}</div>
         <div class="job-company">${company.name}</div>
         <div class="job-note">${r.location}</div>
@@ -212,11 +254,12 @@ app.get('/company/:slug', (req, res) => {
       <div class="company-links">
         ${company.website ? `<a class="button" href="${company.website}" target="_blank" rel="noopener">Visit website ↗</a>` : ''}
       </div>
-      <div class="section-top"><h2>Open roles at ${company.name}</h2></div>
+      <div class="section-top reveal"><h2>Open roles at ${company.name}</h2></div>
       ${rolesHtml}
     </div></section>
   </main>
   ${footer()}
+  ${motionScript()}
 </body>
 </html>`)
 })
