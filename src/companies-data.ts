@@ -41,14 +41,14 @@ export interface Company {
 
 export const companies: Company[] = [
   {
-    slug: 'tidehouse',
-    name: 'Tidehouse',
-    logo: 'tidehouse.png',
-    founder: 'Amelia Park',
-    location: 'Goleta, CA',
-    website: 'https://tidehouse.co',
+    slug: 'logicmonitor',
+    name: 'LogicMonitor',
+    logo: 'LogicLogo.png',
+    founder: 'Steve Francis and Jie Song',
+    location: 'Santa Barbara, California',
+    website: 'https://www.logicmonitor.com/',
     description:
-      'Tidehouse builds energy-management software that helps coastal homes lower their utility use without the guesswork, pairing simple hardware with a service that homeowners actually understand.',
+      'LogicMonitor is a cloud-based IT infrastructure monitoring and hybrid observability platform that helps enterprises track the health, performance, and availability of their networks, cloud services, servers, and applications in one unified system.',
     roles: [
       {
         title: 'Founding Product Designer',
