@@ -24,6 +24,15 @@ function logoMarkup(c: Company): string {
     <span class="logo-fallback">${initials(c.name)}</span>`
 }
 
+function articlePhotoMarkup(a: { title: string; image: string }): string {
+  if (!a.image) {
+    return `<span class="article-photo-fallback" style="display:grid">${a.title}</span>`
+  }
+  return `<img src="/articles/${a.image}" alt="" loading="lazy"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+    <span class="article-photo-fallback">${a.title}</span>`
+}
+
 function head(title: string, description: string): string {
   return `<meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -71,14 +80,42 @@ function motionScript(): string {
       update();
     }
 
-    // Company logo rail: pause auto-scroll on touch (hover is handled in CSS)
+    // Company logo rail: JS-driven auto-scroll that yields to the user.
+    // Native horizontal scrolling stays available at all times (drag, swipe,
+    // wheel) — this just nudges scrollLeft forward when the user isn't
+    // actively interacting, and wraps seamlessly since the logo list is
+    // rendered three times back to back.
     var rail = document.getElementById('logoRail');
-    if (rail) {
-      var pause = function () { rail.classList.add('paused'); };
-      var resume = function () { rail.classList.remove('paused'); };
-      rail.addEventListener('touchstart', pause, { passive: true });
-      rail.addEventListener('touchend', resume, { passive: true });
-      rail.addEventListener('touchcancel', resume, { passive: true });
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (rail && !reduceMotion) {
+      var track = rail.querySelector('.logo-track');
+      var setWidth = track.scrollWidth / 3;
+      rail.scrollLeft = setWidth; // start in the middle copy so the user can scroll either direction
+      var userActive = false;
+      var resumeTimer = null;
+      var markActive = function () {
+        userActive = true;
+        clearTimeout(resumeTimer);
+      };
+      var scheduleResume = function () {
+        clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(function () { userActive = false; }, 1800);
+      };
+      rail.addEventListener('pointerdown', markActive);
+      rail.addEventListener('pointerup', scheduleResume);
+      rail.addEventListener('pointercancel', scheduleResume);
+      rail.addEventListener('touchstart', markActive, { passive: true });
+      rail.addEventListener('touchend', scheduleResume, { passive: true });
+      rail.addEventListener('wheel', function () { markActive(); scheduleResume(); }, { passive: true });
+      rail.addEventListener('scroll', function () {
+        // Keep the scroll position inside the middle copy so it loops forever either way.
+        if (rail.scrollLeft < setWidth * 0.4) { rail.scrollLeft += setWidth; }
+        else if (rail.scrollLeft > setWidth * 1.6) { rail.scrollLeft -= setWidth; }
+      }, { passive: true });
+      (function tick() {
+        if (!userActive) { rail.scrollLeft += 0.6; }
+        requestAnimationFrame(tick);
+      })();
     }
 
     // Scroll-triggered reveal animation
@@ -105,22 +142,23 @@ app.get('/', (_req, res) => {
     c.roles.map((r) => ({ ...r, companyName: c.name }))
   )
 
-  // Rendered twice back-to-back so the CSS animation can loop seamlessly at the halfway point.
-  const railItems = [...companies, ...companies]
+  // Rendered three times back-to-back so the auto-scroll can loop seamlessly in either direction.
+  const railItems = [...companies, ...companies, ...companies]
     .map(
       (c) => `<a class="logo-item" href="/company/${c.slug}" aria-label="${c.name}">${logoMarkup(c)}</a>`
     )
     .join('')
 
-  const articleRows = articles
+  const articleCards = articles
     .map((a) => {
       const tagCompany = companies.find((c) => c.slug === a.company)
-      return `<a class="article-row reveal" href="${a.url}" target="_blank" rel="noopener">
-        <span class="article-title">${a.title}</span>
-        <span class="article-meta">
+      return `<a class="article-card reveal" href="${a.url}" target="_blank" rel="noopener">
+        <div class="article-photo">${articlePhotoMarkup(a)}</div>
+        <div class="article-title">${a.title}</div>
+        <div class="article-meta">
           ${tagCompany ? `<span class="article-tag">${tagCompany.name}</span>` : ''}
           <span>${a.source} · ${a.date}</span>
-        </span>
+        </div>
       </a>`
     })
     .join('')
@@ -146,7 +184,9 @@ app.get('/', (_req, res) => {
 <body>
   ${header()}
   <main>
-    <div class="hero-media"><img data-parallax src="/hero.jpg" alt="" /></div>
+    <div class="hero-media">
+      <video data-parallax src="/hero.mp4" poster="/hero.jpg" autoplay muted loop playsinline preload="auto"></video>
+    </div>
     <div class="wrap hero">
       <div class="eyebrow">The Central Coast startup index</div>
       <h1>Meet the startups building the 805.</h1>
@@ -168,11 +208,15 @@ app.get('/', (_req, res) => {
       <div class="section-top reveal">
         <h2>Companies</h2>
         <p>A running list of the startups building here.</p>
-        <p class="rail-hint">Click a logo to see who's behind it and what they're hiring for.</p>
+        <p class="rail-hint">Scroll sideways, or just watch it go. Click a logo to see who's behind it and what they're hiring for.</p>
       </div>
       <div class="logo-rail" id="logoRail">
         <div class="logo-track">${railItems}</div>
       </div>
+    </div></section>
+
+    <section class="manifesto"><div class="wrap reveal">
+      <p>${companies.length} founders. One coastline. <em>Zero</em> gatekeeping.</p>
     </div></section>
 
     <section id="openings"><div class="wrap">
@@ -188,7 +232,7 @@ app.get('/', (_req, res) => {
         <h2>In the news</h2>
         <p>Coverage and write-ups about the startups listed here.</p>
       </div>
-      <div class="articles">${articleRows}</div>
+      <div class="article-grid">${articleCards}</div>
     </div></section>
 
     <section id="founders"><div class="wrap founders-cta">
