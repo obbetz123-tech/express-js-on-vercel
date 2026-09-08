@@ -208,7 +208,7 @@ app.get('/', (_req, res) => {
       <div class="section-top reveal">
         <h2>Companies</h2>
         <p>A running list of the startups building here.</p>
-        <p class="rail-hint">Scroll sideways, or just watch it go. Click a logo to see who's behind it and what they're hiring for.</p>
+        <p class="rail-hint">Select a company for open positions and more info.</p>
       </div>
       <div class="logo-rail" id="logoRail">
         <div class="logo-track">${railItems}</div>
