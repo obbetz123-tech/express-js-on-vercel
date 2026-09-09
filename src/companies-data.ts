@@ -41,80 +41,60 @@ export interface Company {
 
 export const companies: Company[] = [
   {
-    slug: 'logicmonitor',
-    name: 'LogicMonitor',
-    logo: 'LogicLogo.png',
-    founder: 'Steve Francis and Jie Song',
-    location: 'Santa Barbara, California',
-    website: 'https://www.logicmonitor.com/',
-    description:
-      'LogicMonitor is a cloud-based IT infrastructure monitoring and hybrid observability platform that helps enterprises track the health, performance, and availability of their networks, cloud services, servers, and applications in one unified system.',
-    roles: [
-      {
-        title: 'Founding Product Designer',
-        location: 'Goleta · Hybrid, 3 days in office',
-        type: 'Full-time',
-        link: 'https://www.logicmonitor.com/careers#open-positions',
-      },
-      {
-        title: 'Growth Marketing Intern',
-        location: 'Goleta · 12 hrs/week',
-        type: 'Internship',
-        link: 'mailto:hello@employ805.com?subject=Growth%20Marketing%20Intern%20-%20Tidehouse',
-      },
-    ],
-  },
-  {
-    slug: 'commonwell',
-    name: 'Commonwell',
-    logo: 'commonwell.png',
-    founder: 'Marcus Liu',
+    slug: 'outsideopen',
+    name: 'Outside Open',
+    logo: 'outsideopen.jpg',
+    founder: '', // No individual founder name published on their site — worth just asking them directly when you reach out
     location: 'Santa Barbara, CA',
-    website: 'https://commonwell.example.com',
+    website: 'https://www.outsideopen.com',
     description:
-      'Commonwell builds operational software for the community health clinics that serve the Central Coast, replacing spreadsheets and phone tag with tools built for how clinics actually run.',
-    roles: [
-      {
-        title: 'Customer Success Manager',
-        location: 'Santa Barbara · Hybrid',
-        type: 'Full-time',
-        link: 'mailto:hello@employ805.com?subject=Customer%20Success%20Manager%20-%20Commonwell',
-      },
-    ],
+      'Outside Open is a small Santa Barbara technology studio doing managed IT support, mobile app development, and custom software work for local and national clients.',
+    roles: [], // No public job listings found as of this search — reach out directly to ask if they have openings before listing any
   },
   {
-    slug: 'rivermade',
-    name: 'Rivermade',
-    logo: 'rivermade.png',
-    founder: 'Elena Soto',
-    location: 'Ventura, CA',
-    website: 'https://rivermade.example.com',
+    slug: 'theverse',
+    name: 'The Verse',
+    logo: 'theverse.webp',
+    founder: 'Ben Simon-Thomas',
+    location: 'Santa Barbara, CA', // Company HQ is listed as Berkeley, CA with a distributed team that includes a Santa Barbara presence — not a Santa Barbara headquarters. Worth confirming this still fits before you list them.
+    website: 'https://www.versebuilding.com',
     description:
-      'Rivermade is modern food logistics for the region\u2019s growers and makers, connecting small producers to buyers with clearer routing, tracking, and invoicing than the legacy systems they replace.',
-    roles: [
-      {
-        title: 'Operations Lead',
-        location: 'Ventura · On-site',
-        type: 'Full-time',
-        link: 'mailto:hello@employ805.com?subject=Operations%20Lead%20-%20Rivermade',
-      },
-    ],
+      'The Verse builds games and immersive digital experiences designed to support healing, connection, and personal growth, developed with psychologists and educators.',
+    roles: [], // Their current openings are internships posted on Wellfound rather than their own site — verify current openings and get a direct contact before listing any
   },
   {
-    slug: 'lantern',
-    name: 'Lantern',
-    logo: 'lantern.png',
-    founder: 'Jon Bell',
+    slug: 'olli',
+    name: 'Olli Technologies',
+    logo: 'olli.png',
+    founder: 'Matt Simpson',
     location: 'Santa Barbara, CA',
-    website: 'https://lantern.example.com',
+    website: 'https://www.witholli.com',
     description:
-      'Lantern is a calmer operating system for independent hospitality \u2014 scheduling, ordering, and reporting in one place, built for owners who\u2019d rather run their business than manage five different apps.',
+      'Olli builds an AI-native platform that handles childcare operations, payments, and family communication for small childcare providers, replacing paper forms and scattered group texts.',
     roles: [
       {
-        title: 'Full-Stack Engineer',
-        location: 'Santa Barbara · Flexible',
+        title: 'Founding Engineer & Technical Lead',
+        location: 'Remote · United States',
         type: 'Full-time',
-        link: 'mailto:hello@employ805.com?subject=Full-Stack%20Engineer%20-%20Lantern',
+        link: 'https://wellfound.com/jobs/4594830-founding-engineer-technical-lead',
+      },
+    ],
+  },
+  {
+    slug: 'contratado',
+    name: 'Contratado',
+    logo: 'contratado.png',
+    founder: 'Michael Alvarez',
+    location: 'Santa Barbara, CA',
+    website: 'https://contratado.app',
+    description:
+      'Contratado gives Spanish speakers AI-powered interview practice for English-speaking job applications, helping candidates prepare with realistic mock interviews before the real thing.',
+    roles: [
+      {
+        title: 'Bilingual English/Spanish Customer Support Representative',
+        location: 'Remote',
+        type: 'Full-time',
+        link: 'https://wellfound.com/jobs/4263054-bilingual-english-spanish-customer-support-representatives',
       },
     ],
   },
