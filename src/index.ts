@@ -178,7 +178,7 @@ app.get('/', (_req, res) => {
   res.type('html').send(`<!doctype html>
 <html lang="en">
 <head>${head(
-    `${SITE_NAME} — Startups building the 805`,
+    `${SITE_NAME} — Build The <em>805<em>`,
     'Employ805 connects people with founder-led startups hiring across California\u2019s Central Coast.'
   )}</head>
 <body>
@@ -190,7 +190,8 @@ app.get('/', (_req, res) => {
     <div class="wrap hero">
       <div class="eyebrow">The Central Coast startup index</div>
       <h1>Meet the startups building the 805.</h1>
-      <p class="lede">Open roles from founders growing companies across Santa Barbara, Goleta, Ventura, and the Central Coast.</p>
+      <p class="lede">Local startups working with local individuals with the collective goal of unifying and improving the 805.
+      Employ 805 was not just created for economic growth but also for unification within the 805. </p>
       <div class="actions">
         <a class="button primary" href="#openings">Explore openings</a>
         <a class="button" href="#founders">List your company</a>
