@@ -43,7 +43,7 @@ export const companies: Company[] = [
   {
     slug: 'outsideopen',
     name: 'Outside Open',
-    logo: 'outsideopen.jpg',
+    logo: 'OutsideOpen.png',
     founder: '', // No individual founder name published on their site — worth just asking them directly when you reach out
     location: 'Santa Barbara, CA',
     website: 'https://www.outsideopen.com',
@@ -54,7 +54,7 @@ export const companies: Company[] = [
   {
     slug: 'theverse',
     name: 'The Verse',
-    logo: 'theverse.webp',
+    logo: 'logo-Theverse.png',
     founder: 'Ben Simon-Thomas',
     location: 'Santa Barbara, CA', // Company HQ is listed as Berkeley, CA with a distributed team that includes a Santa Barbara presence — not a Santa Barbara headquarters. Worth confirming this still fits before you list them.
     website: 'https://www.versebuilding.com',
@@ -65,7 +65,7 @@ export const companies: Company[] = [
   {
     slug: 'olli',
     name: 'Olli Technologies',
-    logo: 'olli.png',
+    logo: 'OlliLogo.png',
     founder: 'Matt Simpson',
     location: 'Santa Barbara, CA',
     website: 'https://www.witholli.com',
@@ -83,7 +83,7 @@ export const companies: Company[] = [
   {
     slug: 'contratado',
     name: 'Contratado',
-    logo: 'contratado.png',
+    logo: 'Contratado.png',
     founder: 'Michael Alvarez',
     location: 'Santa Barbara, CA',
     website: 'https://contratado.app',
