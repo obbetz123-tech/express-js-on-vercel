@@ -191,7 +191,7 @@ app.get('/', (_req, res) => {
       <div class="eyebrow">The Central Coast startup index</div>
       <h1>Build The <em>805</em>.</h1>
       <p class="lede">Local startups working with local individuals with the collective goal of unifying and improving the 805.
-      Employ 805 was not just created for economic growth but also for unification within the 805. </p>
+      Employ 805 was not just created to support economic growth but also for unification within the 805. </p>
       <div class="actions">
         <a class="button primary" href="#openings">Explore openings</a>
         <a class="button" href="#founders">List your company</a>
@@ -214,10 +214,6 @@ app.get('/', (_req, res) => {
       <div class="logo-rail" id="logoRail">
         <div class="logo-track">${railItems}</div>
       </div>
-    </div></section>
-
-    <section class="manifesto"><div class="wrap reveal">
-      <p>${companies.length} founders. One coastline. <em>Zero</em> gatekeeping.</p>
     </div></section>
 
     <section id="openings"><div class="wrap">
