@@ -104,17 +104,25 @@ section { padding: 68px 0; border-bottom: 1px solid var(--ink); }
 .logo-track { display: flex; flex-direction: row; width: max-content; }
 
 .logo-item {
+  position: relative;
   display: flex; align-items: center; justify-content: center;
   width: 230px; height: 150px; flex: 0 0 auto; text-decoration: none;
 }
 .logo-item img { max-height: 68px; max-width: 190px; width: auto; filter: grayscale(100%); opacity: .68; transition: filter .2s, opacity .2s, transform .2s; }
-.logo-item:hover img { filter: grayscale(0%); opacity: 1; transform: translateY(-4px) scale(1.04); }
+.logo-item:hover img { filter: grayscale(0%); opacity: 1; transform: translateY(-10px) scale(1.04); }
 .logo-fallback {
   display: none; place-items: center; width: 72px; height: 72px; border-radius: 50%;
   background: var(--ink); color: var(--ivory); font: 500 26px 'Fraunces', Georgia, serif; opacity: .68;
   transition: transform .2s, background .2s, opacity .2s;
 }
-.logo-item:hover .logo-fallback { background: var(--accent); opacity: 1; transform: translateY(-4px); }
+.logo-item:hover .logo-fallback { background: var(--accent); opacity: 1; transform: translateY(-10px); }
+.logo-name {
+  position: absolute; left: 50%; bottom: 14px; transform: translate(-50%, 6px);
+  font: 600 11px/1 'Inter', sans-serif; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--accent-2); opacity: 0; white-space: nowrap; pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.logo-item:hover .logo-name { opacity: 1; transform: translate(-50%, 0); }
 
 @media (max-width: 800px) {
   .logo-rail { height: auto; }
