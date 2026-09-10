@@ -190,8 +190,8 @@ app.get('/', (_req, res) => {
     <div class="wrap hero">
       <div class="eyebrow">The Central Coast startup index</div>
       <h1>Build The <em>805</em>.</h1>
-      <p class="lede">Local startups working with local individuals with the collective goal of unifying and improving the 805.
-      Employ 805 was not just created to support economic growth but also for unification within the 805. </p>
+      <p class="lede">Local startups working with local individuals with the collective goal of unifying and improving the community and economy.
+     </p>
       <div class="actions">
         <a class="button primary" href="#openings">Explore openings</a>
         <a class="button" href="#founders">List your company</a>
