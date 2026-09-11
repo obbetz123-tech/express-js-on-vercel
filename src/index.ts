@@ -21,7 +21,8 @@ function initials(name: string): string {
 function logoMarkup(c: Company): string {
   return `<img src="/logos/${c.logo}" alt="${c.name}" loading="lazy"
       onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
-    <span class="logo-fallback">${initials(c.name)}</span>`
+    <span class="logo-fallback">${initials(c.name)}</span>
+    <span class="logo-name">${c.name}</span>`
 }
 
 function articlePhotoMarkup(a: { title: string; image: string }): string {
@@ -178,7 +179,7 @@ app.get('/', (_req, res) => {
   res.type('html').send(`<!doctype html>
 <html lang="en">
 <head>${head(
-    `${SITE_NAME} — Build The <em>805<em>`,
+    `${SITE_NAME} — Startups building the 805`,
     'Employ805 connects people with founder-led startups hiring across California\u2019s Central Coast.'
   )}</head>
 <body>
@@ -189,9 +190,8 @@ app.get('/', (_req, res) => {
     </div>
     <div class="wrap hero">
       <div class="eyebrow">The Central Coast startup index</div>
-      <h1>Build The <em>805</em>.</h1>
-      <p class="lede">Local startups working with local individuals with the collective goal of unifying and improving the community and economy.
-     </p>
+      <h1>Build the 805.</h1>
+      <p class="lede">Employ805 connects local people with the small, founder-led startups building here — helping local talent find local opportunity, and helping small 805 companies grow the community and economy they're part of.</p>
       <div class="actions">
         <a class="button primary" href="#openings">Explore openings</a>
         <a class="button" href="#founders">List your company</a>
@@ -214,6 +214,10 @@ app.get('/', (_req, res) => {
       <div class="logo-rail" id="logoRail">
         <div class="logo-track">${railItems}</div>
       </div>
+    </div></section>
+
+    <section class="manifesto"><div class="wrap reveal">
+      <p>${companies.length} founders. One coastline. <em>Zero</em> gatekeeping.</p>
     </div></section>
 
     <section id="openings"><div class="wrap">
