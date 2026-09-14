@@ -190,19 +190,8 @@ app.get('/', (_req, res) => {
     </div>
     <div class="wrap hero">
       <div class="eyebrow">The Central Coast startup index</div>
-      <h1>Build the 805.</h1>
-      <p class="lede">Employ805 connects local people with the small, founder-led startups building here — helping local talent find local opportunity, and helping small 805 companies grow the community and economy they're part of.</p>
-      <div class="actions">
-        <a class="button primary" href="#openings">Explore openings</a>
-        <a class="button" href="#founders">List your company</a>
-        <span class="stat"><b>${openRoles.length}</b> open roles this week</span>
-      </div>
-    </div>
-    <div class="locales wrap">
-      <span><i>&#9679;</i>Santa Barbara</span>
-      <span><i>&#9679;</i>Goleta</span>
-      <span><i>&#9679;</i>Ventura</span>
-      <span><i>&#9679;</i>San Luis Obispo</span>
+      <h1>Local Startups for Locals.</h1>
+      <p class="lede">Built to stir up the local economy and bring the community closer together — one local hire at a time.</p>
     </div>
 
     <section id="companies"><div class="wrap companies-layout">
@@ -216,9 +205,7 @@ app.get('/', (_req, res) => {
       </div>
     </div></section>
 
-    <section class="manifesto"><div class="wrap reveal">
-      <p>${companies.length} founders. One coastline. <em>Zero</em> gatekeeping.</p>
-    </div></section>
+    <div class="wave-divider" aria-hidden="true"></div>
 
     <section id="openings"><div class="wrap">
       <div class="section-top reveal">
@@ -238,10 +225,8 @@ app.get('/', (_req, res) => {
 
     <section id="founders"><div class="wrap founders-cta">
       <h2>Building in the 805?</h2>
-      <div>
-        <p>Employ805 gives early-stage teams a straightforward place to meet people who want to build locally.</p>
-        <div class="actions"><a class="button primary" href="mailto:hello@employ805.com?subject=List%20my%20company">List your company</a></div>
-      </div>
+      <p>Employ805 gives early-stage teams a straightforward place to meet people who want to build locally.</p>
+      <a class="button primary" href="mailto:hello@employ805.com?subject=List%20my%20company">List your company</a>
     </div></section>
   </main>
   ${footer()}
