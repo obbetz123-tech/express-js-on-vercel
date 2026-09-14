@@ -65,7 +65,7 @@ export const companies: Company[] = [
   {
     slug: 'olli',
     name: 'Olli Technologies',
-    logo: 'OlliLogo.png',
+    logo: 'olli-logo.svg',
     founder: 'Matt Simpson',
     location: 'Santa Barbara, CA',
     website: 'https://www.witholli.com',
