@@ -120,38 +120,24 @@ function motionScript(): string {
       })();
     }
 
-    // Hero steps strip — continuous swipe slides with brief pause to read
+    // Hero steps strip — one-line swipe, no dots
     var stepsTrack = document.getElementById('stepsTrack');
     if (stepsTrack) {
       var slides = Array.prototype.slice.call(stepsTrack.querySelectorAll('.step-slide'));
       var n = slides.length;
       var idx = 0;
       var reduceSteps = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var dots = document.getElementById('stepsDots');
       var setPos = function (i, animate) {
         idx = ((i % n) + n) % n;
         if (!animate) stepsTrack.style.transition = 'none';
-        else stepsTrack.style.transition = 'transform .7s cubic-bezier(.22,1,.36,1)';
+        else stepsTrack.style.transition = 'transform .55s cubic-bezier(.22,1,.36,1)';
         stepsTrack.style.transform = 'translate3d(' + (-idx * 100) + '%,0,0)';
-        if (dots) {
-          var buttons = dots.querySelectorAll('button');
-          for (var d = 0; d < buttons.length; d++) {
-            buttons[d].setAttribute('aria-current', d === idx ? 'true' : 'false');
-          }
-        }
         if (!animate) {
-          stepsTrack.offsetHeight; // force reflow
-          stepsTrack.style.transition = 'transform .7s cubic-bezier(.22,1,.36,1)';
+          stepsTrack.offsetHeight;
+          stepsTrack.style.transition = 'transform .55s cubic-bezier(.22,1,.36,1)';
         }
       };
       setPos(0, false);
-      if (dots) {
-        dots.addEventListener('click', function (e) {
-          var btn = e.target.closest('button[data-i]');
-          if (!btn) return;
-          setPos(Number(btn.getAttribute('data-i')), true);
-        });
-      }
       if (!reduceSteps && n > 1) {
         setInterval(function () { setPos(idx + 1, true); }, 2400);
       }
@@ -226,39 +212,19 @@ app.get('/', (_req, res) => {
     <div class="hero-media">
       <video data-parallax src="/hero.mp4" poster="/hero.jpg" autoplay muted loop playsinline preload="auto"></video>
     </div>
-    <div class="wrap hero">
-      <div class="eyebrow">The Central Coast startup index</div>
-      <h1>Local Startups for <span class="accent-word">Locals</span>.</h1>
-      <p class="lede">Built to stir up the local economy and bring the community closer together — one local hire at a time.</p>
-    </div>
-
     <div class="steps-strip" aria-label="How Employ805 works">
       <div class="steps-viewport">
         <div class="steps-track" id="stepsTrack">
-          <div class="step-slide">
-            <img class="step-icon" src="/icons/discover.svg" alt="" width="18" height="18" />
-            <span class="step-text">Discover Central Coast startups</span>
-          </div>
-          <div class="step-slide">
-            <img class="step-icon" src="/icons/explore.svg" alt="" width="18" height="18" />
-            <span class="step-text">Explore open roles near you</span>
-          </div>
-          <div class="step-slide">
-            <img class="step-icon" src="/icons/apply.svg" alt="" width="18" height="18" />
-            <span class="step-text">Apply directly — no accounts</span>
-          </div>
-          <div class="step-slide">
-            <img class="step-icon" src="/icons/list.svg" alt="" width="18" height="18" />
-            <span class="step-text">List your company on Employ805</span>
-          </div>
+          <div class="step-slide"><span class="step-text">Discover Central Coast startups</span></div>
+          <div class="step-slide"><span class="step-text">Explore open roles near you</span></div>
+          <div class="step-slide"><span class="step-text">Apply directly — no accounts</span></div>
+          <div class="step-slide"><span class="step-text">List your company on Employ805</span></div>
         </div>
       </div>
-      <div class="steps-dots" id="stepsDots" aria-hidden="true">
-        <button type="button" data-i="0" aria-current="true" aria-label="Step 1"></button>
-        <button type="button" data-i="1" aria-label="Step 2"></button>
-        <button type="button" data-i="2" aria-label="Step 3"></button>
-        <button type="button" data-i="3" aria-label="Step 4"></button>
-      </div>
+    </div>
+    <div class="wrap hero">
+      <div class="eyebrow">The Central Coast startup index</div>
+      <h1>Local Startups for <span class="accent-word">Locals</span>.</h1>
     </div>
 
     <section id="companies"><div class="wrap companies-layout">
