@@ -41,7 +41,7 @@ function head(title: string, description: string): string {
   <title>${title}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/style.css" />`
 }
 
@@ -53,6 +53,7 @@ function header(): string {
       <a href="/#openings">Openings</a>
       <a href="/#founders" class="cta">List your company</a>
     </nav>
+    <img class="brand-mark" src="/employ805-mark.png" alt="" aria-hidden="true" />
   </div></header>`
 }
 
