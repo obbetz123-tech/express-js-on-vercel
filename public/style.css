@@ -73,22 +73,25 @@ nav.links a.cta:hover { filter: brightness(1.05); transform: translateY(-2px); }
 }
 .hero-media::after { content: ''; position: absolute; inset: 0; background: rgba(26, 23, 18, .16); }
 
-/* Hero steps strip — quiet single-line swipe under the hero media */
+/* Hero steps strip — small one-line swipe directly under the hero video */
 .steps-strip {
   position: relative;
-  border-bottom: none;
-  background: transparent;
-  padding: 8px 0 4px;
+  border-bottom: 1px solid var(--line);
+  padding: 8px 16px;
   overflow: hidden;
+  height: auto;
+  line-height: 1.2;
 }
 .steps-viewport {
   overflow: hidden;
-  width: min(720px, calc(100% - 32px));
+  width: min(520px, 100%);
+  height: 1.2em;
   margin: 0 auto;
 }
 .steps-track {
   display: flex;
   width: 100%;
+  height: 100%;
   will-change: transform;
 }
 .step-slide {
@@ -96,50 +99,27 @@ nav.links a.cta:hover { filter: brightness(1.05); transform: translateY(-2px); }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 2px 12px;
+  height: 100%;
   box-sizing: border-box;
-  min-height: 28px;
   white-space: nowrap;
 }
-.step-icon {
-  width: 18px;
-  height: 18px;
-  flex: 0 0 auto;
-  opacity: .75;
-}
 .step-text {
-  font: 500 13px/1.2 'Work Sans', sans-serif;
+  display: block;
+  font: 500 12px/1.2 'Work Sans', sans-serif;
   color: var(--accent);
-  letter-spacing: .01em;
+  letter-spacing: .02em;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: min(52ch, 100%);
-}
-.steps-dots {
-  display: none; /* keep in DOM for JS; visually hidden */
-}
-.steps-dots button {
-  width: 4px;
-  height: 4px;
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
-  background: var(--line);
-  cursor: pointer;
-}
-.steps-dots button[aria-current="true"] {
-  width: 12px;
-  background: var(--accent);
+  max-width: 100%;
 }
 .accent-word { color: var(--accent); }
 @media (prefers-reduced-motion: reduce) {
   .steps-track { transition: none !important; }
 }
 
-.hero { padding: 64px 0 72px; border-bottom: 1px solid var(--ink); text-align: center; }h1, h2, h3, p { margin: 0; }
+.hero { padding: 56px 0 40px; border-bottom: 1px solid var(--ink); text-align: center; }h1, h2, h3, p { margin: 0; }
 h1, h2, h3 { font-family: 'Fredoka', 'Work Sans', sans-serif; font-weight: 500; letter-spacing: -.02em; }
 h1 { max-width: 15ch; margin-left: auto; margin-right: auto; font-size: clamp(38px, 5vw, 60px); line-height: 1.05; margin-top: 14px; }
 .lede { max-width: 48ch; margin: 18px auto 0; font-size: 17px; color: var(--muted); }
