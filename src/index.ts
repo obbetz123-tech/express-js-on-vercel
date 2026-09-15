@@ -120,17 +120,15 @@ function motionScript(): string {
       })();
     }
 
-    // Hero steps strip — one-line swipe, no dots
+    // Hero steps strip — auto-only one-line swipe (no manual controls)
     var stepsTrack = document.getElementById('stepsTrack');
     if (stepsTrack) {
-      var slides = Array.prototype.slice.call(stepsTrack.querySelectorAll('.step-slide'));
-      var n = slides.length;
+      var n = stepsTrack.querySelectorAll('.step-slide').length;
       var idx = 0;
       var reduceSteps = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var setPos = function (i, animate) {
         idx = ((i % n) + n) % n;
-        if (!animate) stepsTrack.style.transition = 'none';
-        else stepsTrack.style.transition = 'transform .55s cubic-bezier(.22,1,.36,1)';
+        stepsTrack.style.transition = animate ? 'transform .55s cubic-bezier(.22,1,.36,1)' : 'none';
         stepsTrack.style.transform = 'translate3d(' + (-idx * 100) + '%,0,0)';
         if (!animate) {
           stepsTrack.offsetHeight;
@@ -211,14 +209,14 @@ app.get('/', (_req, res) => {
   <main>
     <div class="hero-media">
       <video data-parallax src="/hero.mp4" poster="/hero.jpg" autoplay muted loop playsinline preload="auto"></video>
-    </div>
-    <div class="steps-strip" aria-label="How Employ805 works">
-      <div class="steps-viewport">
-        <div class="steps-track" id="stepsTrack">
-          <div class="step-slide"><span class="step-text">Discover Central Coast startups</span></div>
-          <div class="step-slide"><span class="step-text">Explore open roles near you</span></div>
-          <div class="step-slide"><span class="step-text">Apply directly — no accounts</span></div>
-          <div class="step-slide"><span class="step-text">List your company on Employ805</span></div>
+      <div class="steps-strip" aria-hidden="true">
+        <div class="steps-viewport">
+          <div class="steps-track" id="stepsTrack">
+            <div class="step-slide"><span class="step-text">Discover Central Coast startups</span></div>
+            <div class="step-slide"><span class="step-text">Explore open roles near you</span></div>
+            <div class="step-slide"><span class="step-text">Apply directly — no accounts</span></div>
+            <div class="step-slide"><span class="step-text">List your company on Employ805</span></div>
+          </div>
         </div>
       </div>
     </div>
