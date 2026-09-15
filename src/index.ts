@@ -120,6 +120,24 @@ function motionScript(): string {
       })();
     }
 
+    // Rotating text strip under the hero video
+    var rotator = document.getElementById('rotatingText');
+    if (rotator) {
+      var phrases = ['List companies', 'Research companies', 'Employ the local community', 'Improve the economy'];
+      var idx = 0;
+      var reduceMotionRotator = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduceMotionRotator) {
+        setInterval(function () {
+          rotator.style.opacity = '0';
+          setTimeout(function () {
+            idx = (idx + 1) % phrases.length;
+            rotator.textContent = phrases[idx];
+            rotator.style.opacity = '1';
+          }, 300);
+        }, 2600);
+      }
+    }
+
     // Scroll-triggered reveal animation
     var revealEls = document.querySelectorAll('.reveal');
     if ('IntersectionObserver' in window) {
@@ -188,6 +206,9 @@ app.get('/', (_req, res) => {
   <main>
     <div class="hero-media">
       <video data-parallax src="/hero.mp4" poster="/hero.jpg" autoplay muted loop playsinline preload="auto"></video>
+    </div>
+    <div class="rotating-strip">
+      <span class="rotating-text" id="rotatingText">List companies</span>
     </div>
     <div class="wrap hero">
       <div class="eyebrow">The Central Coast startup index</div>
