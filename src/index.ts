@@ -9,6 +9,9 @@ app.use(express.static('public'))
 
 const SITE_NAME = 'Employ805'
 
+const COMPANY_SIGNUP_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSelRzzjQgTJnWin1V-1qUbRkdPnC3f7PKAGMJutzuqEKwl6wg/viewform'
+
 function initials(name: string): string {
   return name
     .split(' ')
@@ -52,7 +55,7 @@ function header(): string {
     <nav class="links" aria-label="Main navigation">
       <a href="/#companies">Companies</a>
       <a href="/#openings">Openings</a>
-      <a href="/#founders" class="cta">List your company</a>
+      <a href="${COMPANY_SIGNUP_URL}" class="cta" target="_blank" rel="noopener">List your company</a>
     </nav>
   </div></header>`
 }
@@ -254,7 +257,7 @@ app.get('/', (_req, res) => {
     <section id="founders"><div class="wrap founders-cta">
       <h2>Building in the 805?</h2>
       <p>Employ805 gives early-stage teams a straightforward place to meet people who want to build locally.</p>
-      <a class="button primary" href="mailto:hello@employ805.com?subject=List%20my%20company">List your company</a>
+      <a class="button primary" href="${COMPANY_SIGNUP_URL}" target="_blank" rel="noopener">List your company</a>
     </div></section>
   </main>
   ${footer()}
