@@ -48,12 +48,12 @@ function head(title: string, description: string): string {
 function header(): string {
   return `<header><div class="wrap nav">
     <a class="brand" href="/">Employ<span>805</span></a>
+    <img class="brand-mark" src="/employ805-mark.png" alt="" aria-hidden="true" />
     <nav class="links" aria-label="Main navigation">
       <a href="/#companies">Companies</a>
       <a href="/#openings">Openings</a>
       <a href="/#founders" class="cta">List your company</a>
     </nav>
-    <img class="brand-mark" src="/employ805-mark.png" alt="" aria-hidden="true" />
   </div></header>`
 }
 
@@ -226,23 +226,29 @@ app.get('/', (_req, res) => {
     <div class="hero-media">
       <video data-parallax src="/hero.mp4" poster="/hero.jpg" autoplay muted loop playsinline preload="auto"></video>
     </div>
+    <div class="wrap hero">
+      <div class="eyebrow">The Central Coast startup index</div>
+      <h1>Local Startups for <span class="accent-word">Locals</span>.</h1>
+      <p class="lede">Built to stir up the local economy and bring the community closer together — one local hire at a time.</p>
+    </div>
+
     <div class="steps-strip" aria-label="How Employ805 works">
       <div class="steps-viewport">
         <div class="steps-track" id="stepsTrack">
           <div class="step-slide">
-            <img class="step-icon" src="/icons/discover.svg" alt="" width="48" height="48" />
+            <img class="step-icon" src="/icons/discover.svg" alt="" width="18" height="18" />
             <span class="step-text">Discover Central Coast startups</span>
           </div>
           <div class="step-slide">
-            <img class="step-icon" src="/icons/explore.svg" alt="" width="48" height="48" />
+            <img class="step-icon" src="/icons/explore.svg" alt="" width="18" height="18" />
             <span class="step-text">Explore open roles near you</span>
           </div>
           <div class="step-slide">
-            <img class="step-icon" src="/icons/apply.svg" alt="" width="48" height="48" />
-            <span class="step-text">Apply directly — no accounts needed</span>
+            <img class="step-icon" src="/icons/apply.svg" alt="" width="18" height="18" />
+            <span class="step-text">Apply directly — no accounts</span>
           </div>
           <div class="step-slide">
-            <img class="step-icon" src="/icons/list.svg" alt="" width="48" height="48" />
+            <img class="step-icon" src="/icons/list.svg" alt="" width="18" height="18" />
             <span class="step-text">List your company on Employ805</span>
           </div>
         </div>
@@ -253,11 +259,6 @@ app.get('/', (_req, res) => {
         <button type="button" data-i="2" aria-label="Step 3"></button>
         <button type="button" data-i="3" aria-label="Step 4"></button>
       </div>
-    </div>
-    <div class="wrap hero">
-      <div class="eyebrow">The Central Coast startup index</div>
-      <h1>Local Startups for Locals.</h1>
-      <p class="lede">Built to stir up the local economy and bring the community closer together — one local hire at a time.</p>
     </div>
 
     <section id="companies"><div class="wrap companies-layout">
