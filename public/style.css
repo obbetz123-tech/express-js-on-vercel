@@ -65,7 +65,6 @@ nav.links a.cta:hover { filter: brightness(1.05); transform: translateY(-2px); }
 /* Hero */
 .hero-media {
   position: relative; height: 46vh; min-height: 340px; overflow: hidden;
-  border-bottom: 1px solid var(--ink);
   border-radius: 0;
 }
 .hero-media img, .hero-media video {
@@ -73,58 +72,46 @@ nav.links a.cta:hover { filter: brightness(1.05); transform: translateY(-2px); }
 }
 .hero-media::after { content: ''; position: absolute; inset: 0; background: rgba(26, 23, 18, .16); pointer-events: none; }
 
-/* Caption bar pinned to the bottom edge of the hero video — auto-only */
+/* Steps strip — a full-width band under the hero video, constantly
+   sliding left in a seamless loop (the slide list is rendered twice
+   back-to-back in the HTML so the loop point is invisible). */
 .steps-strip {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  z-index: 2;
-  padding: 10px 16px;
-  background: rgba(15, 14, 12, .55);
-  border: 0;
   overflow: hidden;
-  line-height: 1.2;
-  pointer-events: none; /* no manual slide switching */
-  user-select: none;
-  touch-action: none;
-}
-.steps-viewport {
-  overflow: hidden;
-  width: min(520px, 100%);
-  height: 1.2em;
-  margin: 0 auto;
-  pointer-events: none;
+  padding: 22px 0;
+  background: var(--ink);
 }
 .steps-track {
   display: flex;
-  width: 100%;
-  height: 100%;
-  will-change: transform;
-  pointer-events: none;
+  align-items: center;
+  width: max-content;
+  animation: steps-scroll 16s linear infinite;
+}
+@keyframes steps-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 .step-slide {
-  flex: 0 0 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 100%;
-  box-sizing: border-box;
+  gap: 14px;
+  padding: 0 44px;
   white-space: nowrap;
-  pointer-events: none;
 }
+.step-icon { height: 30px; width: 30px; flex: none; }
 .step-text {
-  display: block;
-  font: 500 12px/1.2 'Work Sans', sans-serif;
-  color: #ffe4dc;
-  letter-spacing: .02em;
-  text-align: center;
+  font: 600 21px/1.2 'Fredoka', 'Work Sans', sans-serif;
+  color: var(--ivory);
+  letter-spacing: .01em;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
 }
 .accent-word { color: var(--accent); }
 @media (prefers-reduced-motion: reduce) {
-  .steps-track { transition: none !important; }
+  .steps-track { animation: none; }
+}
+@media (max-width: 700px) {
+  .step-text { font-size: 17px; }
+  .step-icon { height: 24px; width: 24px; }
+  .step-slide { padding: 0 28px; gap: 10px; }
 }
 
 .hero { padding: 56px 0 40px; border-bottom: 1px solid var(--ink); text-align: center; }h1, h2, h3, p { margin: 0; }
