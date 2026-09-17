@@ -35,7 +35,7 @@ export const articles: Article[] = [
     date: '2026',
     url: 'https://www.nucamp.co/blog/top-10-industries-hiring-ai-talent-in-santa-barbara-beyond-big-tech-in-2026',
     company: '',
-    image: '',
+    image: 'ai-hiring.jpg',
   },
   {
     title: 'Central Coast unemployment ticks up as nonfarm jobs decline',
@@ -43,7 +43,7 @@ export const articles: Article[] = [
     date: 'Aug 2026',
     url: 'https://www.pacbiztimes.com/2026/08/24/unemployment-continues-rising-on-the-central-coast/',
     company: '',
-    image: '',
+    image: 'unemployment-aug.jpg',
   },
   {
     title: 'Central Coast unemployment dips back below 5%',
@@ -51,7 +51,7 @@ export const articles: Article[] = [
     date: 'Apr 2026',
     url: 'https://www.pacbiztimes.com/2026/04/20/central-coast-unemployment-dips-back-below-5-in-february/',
     company: '',
-    image: '',
+    image: 'unemployment-apr.jpg',
   },
   {
     title: 'How UCSB and Google Quantum AI turned Santa Barbara into a tech hub',
@@ -59,6 +59,6 @@ export const articles: Article[] = [
     date: '2026',
     url: 'https://www.ece.ucsb.edu/news/all/2026/tech-titans-santa-barbara-ucsb',
     company: '',
-    image: '',
+    image: 'ucsb-quantum.jpg',
   },
 ]
