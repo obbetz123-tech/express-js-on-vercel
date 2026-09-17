@@ -72,12 +72,13 @@ nav.links a.cta:hover { filter: brightness(1.05); transform: translateY(-2px); }
 }
 .hero-media::after { content: ''; position: absolute; inset: 0; background: rgba(26, 23, 18, .16); pointer-events: none; }
 
-/* Steps strip — a full-width band under the hero video, constantly
+/* Steps strip — a full-width band above the hero video, constantly
    sliding left in a seamless loop (the slide list is rendered twice
-   back-to-back in the HTML so the loop point is invisible). */
+   back-to-back in the HTML so the loop point is invisible). Sized small
+   and quiet since it now sits on its own, separate from the video. */
 .steps-strip {
   overflow: hidden;
-  padding: 22px 0;
+  padding: 12px 0;
   background: var(--ink);
 }
 .steps-track {
@@ -93,13 +94,13 @@ nav.links a.cta:hover { filter: brightness(1.05); transform: translateY(-2px); }
 .step-slide {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 0 44px;
+  gap: 10px;
+  padding: 0 30px;
   white-space: nowrap;
 }
-.step-icon { height: 30px; width: 30px; flex: none; }
+.step-icon { height: 20px; width: 20px; flex: none; }
 .step-text {
-  font: 600 21px/1.2 'Fredoka', 'Work Sans', sans-serif;
+  font: 600 14px/1.2 'Fredoka', 'Work Sans', sans-serif;
   color: var(--ivory);
   letter-spacing: .01em;
   white-space: nowrap;
@@ -109,9 +110,9 @@ nav.links a.cta:hover { filter: brightness(1.05); transform: translateY(-2px); }
   .steps-track { animation: none; }
 }
 @media (max-width: 700px) {
-  .step-text { font-size: 17px; }
-  .step-icon { height: 24px; width: 24px; }
-  .step-slide { padding: 0 28px; gap: 10px; }
+  .step-text { font-size: 12px; }
+  .step-icon { height: 16px; width: 16px; }
+  .step-slide { padding: 0 20px; gap: 8px; }
 }
 
 .hero { padding: 56px 0 40px; border-bottom: 1px solid var(--ink); text-align: center; }h1, h2, h3, p { margin: 0; }
@@ -132,6 +133,43 @@ h1 { max-width: 15ch; margin-left: auto; margin-right: auto; font-size: clamp(38
   height: 22px;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 20' preserveAspectRatio='none'><path d='M0 10 Q 15 2 30 10 T 60 10 T 90 10 T 120 10' fill='none' stroke='%235b83a3' stroke-width='1.4' opacity='0.55'/></svg>");
   background-repeat: repeat-x; background-size: 120px 20px;
+}
+
+/* Trapezoid photo row — 3 angled image cards above Open Roles */
+.photo-row { padding-top: 0; }
+.trapezoid-row {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 28px;
+}
+.trapezoid-card {
+  position: relative;
+  flex: 1 1 0;
+  height: 260px;
+  overflow: hidden;
+  border-radius: 22px;
+  /* Slight trapezoid: top edges pulled in a touch, giving angled sides
+     while the rounded corners (above) keep it from looking razor-sharp. */
+  clip-path: polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%);
+  background: var(--accent-tint);
+}
+.trapezoid-card:nth-child(2) {
+  clip-path: polygon(2% 0%, 98% 0%, 100% 100%, 0% 100%);
+}
+.trapezoid-card:nth-child(3) {
+  clip-path: polygon(0% 0%, 100% 0%, 96% 100%, 4% 100%);
+}
+.trapezoid-card img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.trapezoid-card--empty {
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--accent-tint), var(--paper));
+}
+@media (max-width: 800px) {
+  .trapezoid-row { flex-direction: column; gap: 18px; }
+  .trapezoid-card { height: 200px; clip-path: polygon(3% 0%, 97% 0%, 100% 100%, 0% 100%) !important; }
 }
 
 /* Sections */
