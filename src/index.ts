@@ -9,6 +9,9 @@ app.use(express.static('public'))
 
 const SITE_NAME = 'Employ805'
 
+const COMPANY_SIGNUP_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSelRzzjQgTJnWin1V-1qUbRkdPnC3f7PKAGMJutzuqEKwl6wg/viewform'
+
 function initials(name: string): string {
   return name
     .split(' ')
@@ -52,7 +55,7 @@ function header(): string {
     <nav class="links" aria-label="Main navigation">
       <a href="/#companies">Companies</a>
       <a href="/#openings">Openings</a>
-      <a href="/#founders" class="cta">List your company</a>
+      <a href="${COMPANY_SIGNUP_URL}" class="cta" target="_blank" rel="noopener">List your company</a>
     </nav>
   </div></header>`
 }
@@ -120,26 +123,8 @@ function motionScript(): string {
       })();
     }
 
-    // Hero steps strip — auto-only one-line swipe (no manual controls)
-    var stepsTrack = document.getElementById('stepsTrack');
-    if (stepsTrack) {
-      var n = stepsTrack.querySelectorAll('.step-slide').length;
-      var idx = 0;
-      var reduceSteps = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var setPos = function (i, animate) {
-        idx = ((i % n) + n) % n;
-        stepsTrack.style.transition = animate ? 'transform .55s cubic-bezier(.22,1,.36,1)' : 'none';
-        stepsTrack.style.transform = 'translate3d(' + (-idx * 100) + '%,0,0)';
-        if (!animate) {
-          stepsTrack.offsetHeight;
-          stepsTrack.style.transition = 'transform .55s cubic-bezier(.22,1,.36,1)';
-        }
-      };
-      setPos(0, false);
-      if (!reduceSteps && n > 1) {
-        setInterval(function () { setPos(idx + 1, true); }, 2400);
-      }
-    }
+    // Hero steps strip now runs as a pure-CSS continuous marquee (see .steps-track
+    // animation in style.css) — no JS needed to drive the motion itself.
 
     // Scroll-triggered reveal animation
     var revealEls = document.querySelectorAll('.reveal');
@@ -207,18 +192,20 @@ app.get('/', (_req, res) => {
 <body>
   ${header()}
   <main>
+    <div class="steps-strip" aria-hidden="true">
+      <div class="steps-track" id="stepsTrack">
+        <span class="step-slide"><img class="step-icon" src="/icons/discover.svg" alt="" /><span class="step-text">Discover Central Coast startups</span></span>
+        <span class="step-slide"><img class="step-icon" src="/icons/explore.svg" alt="" /><span class="step-text">Explore open roles near you</span></span>
+        <span class="step-slide"><img class="step-icon" src="/icons/apply.svg" alt="" /><span class="step-text">Apply directly — no accounts</span></span>
+        <span class="step-slide"><img class="step-icon" src="/icons/list.svg" alt="" /><span class="step-text">List your company on Employ805</span></span>
+        <span class="step-slide"><img class="step-icon" src="/icons/discover.svg" alt="" /><span class="step-text">Discover Central Coast startups</span></span>
+        <span class="step-slide"><img class="step-icon" src="/icons/explore.svg" alt="" /><span class="step-text">Explore open roles near you</span></span>
+        <span class="step-slide"><img class="step-icon" src="/icons/apply.svg" alt="" /><span class="step-text">Apply directly — no accounts</span></span>
+        <span class="step-slide"><img class="step-icon" src="/icons/list.svg" alt="" /><span class="step-text">List your company on Employ805</span></span>
+      </div>
+    </div>
     <div class="hero-media">
       <video data-parallax src="/hero.mp4" poster="/hero.jpg" autoplay muted loop playsinline preload="auto"></video>
-      <div class="steps-strip" aria-hidden="true">
-        <div class="steps-viewport">
-          <div class="steps-track" id="stepsTrack">
-            <div class="step-slide"><span class="step-text">Discover Central Coast startups</span></div>
-            <div class="step-slide"><span class="step-text">Explore open roles near you</span></div>
-            <div class="step-slide"><span class="step-text">Apply directly — no accounts</span></div>
-            <div class="step-slide"><span class="step-text">List your company on Employ805</span></div>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="wrap hero">
       <div class="eyebrow">The Central Coast startup index</div>
@@ -234,6 +221,23 @@ app.get('/', (_req, res) => {
     </div></section>
 
     <div class="wave-divider" aria-hidden="true"></div>
+
+    <section class="photo-row"><div class="wrap">
+      <div class="trapezoid-row">
+        <div class="trapezoid-card">
+          <img src="/photos/working-1.jpg" alt="" loading="lazy"
+            onerror="this.style.display='none';this.parentElement.classList.add('trapezoid-card--empty')">
+        </div>
+        <div class="trapezoid-card">
+          <img src="/photos/working-2.jpg" alt="" loading="lazy"
+            onerror="this.style.display='none';this.parentElement.classList.add('trapezoid-card--empty')">
+        </div>
+        <div class="trapezoid-card">
+          <img src="/photos/working-3.jpg" alt="" loading="lazy"
+            onerror="this.style.display='none';this.parentElement.classList.add('trapezoid-card--empty')">
+        </div>
+      </div>
+    </div></section>
 
     <section id="openings"><div class="wrap">
       <div class="section-top reveal">
@@ -254,7 +258,7 @@ app.get('/', (_req, res) => {
     <section id="founders"><div class="wrap founders-cta">
       <h2>Building in the 805?</h2>
       <p>Employ805 gives early-stage teams a straightforward place to meet people who want to build locally.</p>
-      <a class="button primary" href="mailto:hello@employ805.com?subject=List%20my%20company">List your company</a>
+      <a class="button primary" href="${COMPANY_SIGNUP_URL}" target="_blank" rel="noopener">List your company</a>
     </div></section>
   </main>
   ${footer()}
