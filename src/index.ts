@@ -1,4 +1,4 @@
-import express from 'express'
+]import express from 'express'
 import { companies, type Company } from './companies-data.js'
 import { articles } from './articles-data.js'
 
@@ -222,21 +222,9 @@ app.get('/', (_req, res) => {
 
     <div class="wave-divider" aria-hidden="true"></div>
 
-    <section class="photo-row"><div class="wrap">
-      <div class="trapezoid-row">
-        <div class="trapezoid-card">
-          <img src="/photos/working-1.jpg" alt="" loading="lazy"
-            onerror="this.style.display='none';this.parentElement.classList.add('trapezoid-card--empty')">
-        </div>
-        <div class="trapezoid-card">
-          <img src="/photos/working-2.jpg" alt="" loading="lazy"
-            onerror="this.style.display='none';this.parentElement.classList.add('trapezoid-card--empty')">
-        </div>
-        <div class="trapezoid-card">
-          <img src="/photos/working-3.jpg" alt="" loading="lazy"
-            onerror="this.style.display='none';this.parentElement.classList.add('trapezoid-card--empty')">
-        </div>
-      </div>
+    <section class="giant-805"><div class="wrap">
+      <div class="giant-805-text" aria-hidden="true">805</div>
+      <p class="giant-805-caption">Uniting communities from Santa Barbara to San Luis Obispo — Goleta, Ventura, and everywhere in between.</p>
     </div></section>
 
     <section id="openings"><div class="wrap">
