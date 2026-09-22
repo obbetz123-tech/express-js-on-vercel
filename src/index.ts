@@ -1,4 +1,4 @@
-]import express from 'express'
+import express from 'express'
 import { companies, type Company } from './companies-data.js'
 import { articles } from './articles-data.js'
 
