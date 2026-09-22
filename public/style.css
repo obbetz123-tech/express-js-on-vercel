@@ -135,42 +135,25 @@ h1 { max-width: 15ch; margin-left: auto; margin-right: auto; font-size: clamp(38
   background-repeat: repeat-x; background-size: 120px 20px;
 }
 
-/* Trapezoid photo row — 3 angled image cards above Open Roles */
-.photo-row { padding-top: 0; }
-.trapezoid-row {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  gap: 28px;
+/* Giant "805" filled with the hero image instead of a flat color —
+   a bold graphic beat between Companies and Open Roles. */
+.giant-805 { padding: 20px 0 50px; text-align: center; }
+.giant-805-text {
+  font: 700 clamp(110px, 22vw, 260px)/0.9 'Fredoka', 'Work Sans', sans-serif;
+  letter-spacing: -.02em;
+  background-image: url('/hero.jpg');
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--ink); /* fallback for browsers without background-clip: text support */
+  -webkit-text-fill-color: transparent;
 }
-.trapezoid-card {
-  position: relative;
-  flex: 1 1 0;
-  height: 260px;
-  overflow: hidden;
-  border-radius: 22px;
-  /* Slight trapezoid: top edges pulled in a touch, giving angled sides
-     while the rounded corners (above) keep it from looking razor-sharp. */
-  clip-path: polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%);
-  background: var(--accent-tint);
+.giant-805-caption {
+  max-width: 46ch; margin: 14px auto 0;
+  font-size: 15px; color: var(--muted);
 }
-.trapezoid-card:nth-child(2) {
-  clip-path: polygon(2% 0%, 98% 0%, 100% 100%, 0% 100%);
-}
-.trapezoid-card:nth-child(3) {
-  clip-path: polygon(0% 0%, 100% 0%, 96% 100%, 4% 100%);
-}
-.trapezoid-card img {
-  width: 100%; height: 100%; object-fit: cover;
-}
-.trapezoid-card--empty {
-  display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, var(--accent-tint), var(--paper));
-}
-@media (max-width: 800px) {
-  .trapezoid-row { flex-direction: column; gap: 18px; }
-  .trapezoid-card { height: 200px; clip-path: polygon(3% 0%, 97% 0%, 100% 100%, 0% 100%) !important; }
-}
+
 
 /* Sections */
 section { padding: 68px 0; }
