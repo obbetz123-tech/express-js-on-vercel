@@ -10,7 +10,7 @@ app.use(express.static('public'))
 const SITE_NAME = 'Employ805'
 
 const COMPANY_SIGNUP_URL =
-  'https://docs.google.com/forms/d/e/1FAIpQLSelRzzjQgTJnWin1V-1qUbRkdPnC3f7PKAGMJutzuqEKwl6wg/viewform'
+  'https://docs.google.com/forms/d/e/1FAIpQLSdT4V6nP8-ONM7x8FIwwJ4yjNpQrUjercV4AIdvVorzAZy7Ew/viewform'
 
 function initials(name: string): string {
   return name
