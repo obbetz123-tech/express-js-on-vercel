@@ -44,7 +44,7 @@ function head(title: string, description: string): string {
   <title>${title}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/style.css" />`
 }
 
@@ -223,6 +223,7 @@ app.get('/', (_req, res) => {
     <div class="wave-divider" aria-hidden="true"></div>
 
     <section class="giant-805"><div class="wrap">
+      <div class="giant-805-kicker">Expand the</div>
       <div class="giant-805-text" aria-hidden="true">805</div>
       <p class="giant-805-caption">Uniting communities from Santa Barbara to San Luis Obispo — Goleta, Ventura, and everywhere in between.</p>
     </div></section>
