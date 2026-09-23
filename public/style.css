@@ -138,8 +138,14 @@ h1 { max-width: 15ch; margin-left: auto; margin-right: auto; font-size: clamp(38
 /* Giant "805" filled with the hero image instead of a flat color —
    a bold graphic beat between Companies and Open Roles. */
 .giant-805 { padding: 20px 0 50px; text-align: center; }
+.giant-805-kicker {
+  font: 600 15px 'Work Sans', sans-serif;
+  letter-spacing: .04em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
 .giant-805-text {
-  font: 700 clamp(110px, 22vw, 260px)/0.9 'Fredoka', 'Work Sans', sans-serif;
+  font: 400 clamp(140px, 28vw, 320px)/0.9 'Fredoka', 'Work Sans', sans-serif;
   letter-spacing: -.02em;
   background-image: url('/hero.jpg');
   background-size: cover;
