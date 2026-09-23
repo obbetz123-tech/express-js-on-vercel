@@ -66,7 +66,7 @@ export const companies: Company[] = [
     slug: 'olli',
     name: 'Olli Technologies',
     logo: 'olli-logo.svg', // sourced from their original olli-logo.svg (witholli.com/olli-logo.svg), re-rendered at high resolution and exported as a PNG
-    founder: 'Matt Simpson',
+    founder: 'Ben Book',
     location: 'Santa Barbara, CA',
     website: 'https://www.witholli.com',
     description:
